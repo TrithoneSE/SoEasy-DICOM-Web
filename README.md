@@ -102,6 +102,7 @@ quickly on any device; use the desktop version for the full toolset.
 | Rim filter (tumour vs. vessel walls) | ✅ | ✅ |
 | Crop box, scalpel | ✅ | ✅ |
 | 3D snapshots | ✅ | ✅ |
+| Collage (one 5 × 5 / 4 × 4 / 4 × 3 image, one slice every N mm) | ✅ | — |
 | 3D fly-through movie (GIF / PNG) | ✅ | — |
 | 3D measurements | ✅ | — |
 | Tumour segmentation, volume in ml, STL export | ✅ | — |
