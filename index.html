@@ -15,8 +15,8 @@
   <link rel="icon" type="image/png" sizes="192x192" href="./icons/icon-192.png" />
   <link rel="apple-touch-icon" href="./icons/apple-touch-icon.png" />
   <title>SoEasy DICOM Viewer</title>
-  <script type="module" crossorigin src="./assets/index-DU9B8DWh.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/index-BxLCO7Uu.css">
+  <script type="module" crossorigin src="./assets/index-Bn7DTy-d.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/index-D35f-8jW.css">
 </head>
 <body>
   <header id="bar">
@@ -24,7 +24,7 @@
     <div id="tools" class="tools"></div>
   </header>
   <div id="main">
-    <aside id="side" class="open">
+    <aside id="side">
       <div id="series"></div>
     </aside>
     <section id="view">
@@ -43,6 +43,9 @@
         <div class="vr-view"><canvas id="vr-canvas"></canvas><div id="vr-label"></div><div id="vr-snaps" hidden></div></div>
         <div id="vr-panel">
           <div class="vr-row tools3d">
+            <button id="t3-pan" class="chip" title="Pan: one finger moves the model (P). Two fingers always pan">Pan</button>
+            <button id="t3-measure" class="chip" title="Length between two points of the surface (L): drag from one to the other. It stays on the model when you turn it">Measure</button>
+            <button id="t3-mdel" class="chip" title="Delete the selected length, or the last one (Delete)">Delete length</button>
             <button id="t3-crop" class="chip" title="Crop box: drag the coloured handles (Shift+C)">Crop</button>
             <button id="t3-box" class="chip" title="Hide / show the crop box — the crop stays (B)">Hide box</button>
             <button id="t3-cut" class="chip" title="Scalpel: draw around what to remove (X)">Scalpel</button>
@@ -53,6 +56,9 @@
           </div>
           <div class="vr-row">
             <select id="vr-preset" aria-label="Colour preset"></select>
+            <select id="vr-res" title="Quality of the volume in graphics memory. Auto: full unless this device cannot hold it. Half: ¼ of the memory, softer image" aria-label="Quality">
+              <option value="auto">Auto</option><option value="full">Full</option><option value="half">Half</option>
+            </select>
             <button id="vr-save" class="chip" title="Save the curves as your own preset (kept in this browser)">Save</button>
             <button id="vr-more" class="chip" title="Export / import presets (desktop JSON)">⋯</button>
           </div>
@@ -63,16 +69,28 @@
           <div class="vr-row">
             <label class="check" id="vr-bone-l"><input id="vr-bone" type="checkbox" /> Bone lock <span id="vr-bone-v"></span></label>
             <label class="check"><input id="vr-shade" type="checkbox" /> Shading</label>
+            <label class="check" id="vr-art-l" hidden title="Arteries: voxels at or above this HU and what connects to them. Empty = automatic">Artery ≥ <input id="vr-art" type="number" min="100" max="1000" step="10" inputmode="numeric" /></label>
           </div>
-          <div id="vr-editor"></div>
           <div class="vr-row curve-tools">
-            <button id="ct-add" class="chip">+ Curve</button>
-            <button id="ct-color" class="chip">Colour</button>
-            <button id="ct-bone" class="chip">Bone curve</button>
-            <button id="ct-rims" class="chip">Rims hidden</button>
+            <button id="ct-add" class="chip" title="Add a curve">+ Curve</button>
+            <button id="ct-color" class="chip" title="Colour of the selected point or curve">Colour</button>
+            <button id="ct-bone" class="chip" title="Bone curve: this curve colours only the bone area">Bone</button>
+            <button id="ct-rims" class="chip" title="Rims hidden: this curve leaves out the edges of vessels and bone">Rims</button>
             <button id="ct-del" class="chip">Delete</button>
           </div>
+          <div id="vr-editor"></div>
         </div>
+      </div>
+      <div id="seg" hidden>
+        <div class="seg-head">
+          <span id="seg-dot"></span><b id="seg-name"></b><span id="seg-ml"></span>
+          <span class="seg-gap"></span>
+          <button id="seg-hide" class="chip">Hide</button>
+          <button id="seg-del" class="chip">Delete</button>
+          <button id="seg-done" class="chip">Done</button>
+        </div>
+        <canvas id="seg-hist" title="Drag the two handles: what enters the segment"></canvas>
+        <div id="seg-range"></div>
       </div>
       <div id="welcome">
         <img src="./icons/icon-512.png" alt="" width="96" height="96" />
